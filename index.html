@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Pop</title>
+  <style>
+    .container {
+      width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .topic-selector {
+      margin-top: 50px;
+    }
+    .question-container {
+      margin-top: 50px;
+      display: none;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options {
+      margin-top: 20px;
+    }
+    .option {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .score-container {
+      margin-top: 50px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz Pop</h1>
+    <div class="topic-selector">
+      <h2>Select a topic:</h2>
+      <select id="topic-select">
+        <option value="">--Choose--</option>
+        <option value="history">History</option>
+        <option value="geography">Geography</option>
+        <option value="science">Science</option>
+      </select>
+      <button id="start-quiz-btn">Start Quiz</button>
+    </div>
+    <div class="question-container">
+      <h2>Question 1</h2>
+      <p class="question">What is the capital of France?</p>
+      <div class="options">
+        <div class="option">
+          <input type="radio" name="option1" value="Paris">Paris
+        </div>
+        <div class="option">
+          <input type="radio" name="option1" value="London">London
+        </div>
+        <div class="option">
+          <input type="radio" name="option1" value="Rome">Rome
+        </div>
+      </div>
+      <button id="next-question-btn">Next</button>
+    </div>
+    <div class="score-container">
+      <h2>Your score is:</h2>
+      <p id="score"></p>
+    </div>
+  </div>
+  <script>
+    const topicSelect = document.querySelector("#topic-select");
+    const startQuizBtn = document.querySelector("#start-quiz-btn");
+    const questionContainer = document.querySelector(".question-container");
+    const question = document.querySelector(".question");
+    const options = document.querySelectorAll(".option");
+    const nextQuestionBtn = document.querySelector("#next-question-btn");
+    const scoreContainer = document.querySelector(".score-container");
+    const score = document.querySelector("#score");
+
+    let currentQuestion = 0;
+    let questions = [];
+    let totalScore = 0;
+
+    const historyQuestions = [
+      {
+        question: "What is the capital of France?",
+        options: ["Paris", "London",   Rome"],
+        correctOption: "Paris"
+      },
+      {
+        question: "Who was the first President of the United States?",
+        options: ["George Washington", "Thomas Jefferson", "Benjamin Franklin"],
+        correctOption: "George Washington"
+      },
+      {
+        question: "What was the main cause of World War II?",
+        options: ["Economic crisis", "Political tensions", "Military aggression"],
+        correctOption: "Military aggression"
+      }
+    ];
+
+    const geographyQuestions = [
+      {
+        question: "What is the largest ocean in the world?",
+        options: ["Atlantic Ocean", "Pacific Ocean", "Indian Ocean"],
+        correctOption: "Pacific Ocean"
+      },
+      {
+        question: "What is the highest mountain in the world?",
+        options: ["Mount Everest", "Mount Kilimanjaro", "Mount Denali"],
+        correctOption: "Mount Everest"
+      },
+      {
+        question: "What is the longest river in the world?",
+        options: ["Nile River", "Amazon River", "Yangtze River"],
+        correctOption: "Nile River"
+      }
+    ];
+
+    const scienceQuestions = [
+      {
+        question: "What is the smallest planet in our solar system?",
+        options: ["Earth", "Mars", "Mercury"],
+        correctOption: "Mercury"
+      },
+      {
+        question: "What is the largest mammal in the world?",
+        options: ["Elephant", "Whale", "Giraffe"],
+        correctOption: "Whale"
+      },
+      {
+        question: "What is the main source of energy for the Earth?",
+        options: ["Wind", "Coal", "Sun"],
+        correctOption: "Sun"
+      }
+    ];
+
+    startQuizBtn.addEventListener("click", function() {
+      if (!topicSelect.value) {
+        alert("Please select a topic");
+        return;
+      }
+      switch (topicSelect.value) {
+        case "history":
+          questions = historyQuestions;
+          break;
+        case "geography":
+          questions = geographyQuestions;
+          break;
+        case "science":
+          questions = scienceQuestions;
+          break;
+      }
+      questionContainer.style.display = "block";
+      displayQuestion(currentQuestion);
+    });
+
+    function displayQuestion(questionIndex) {
+      question.innerHTML = questions[questionIndex].question;
+      for (let i = 0; i < options.length; i++) {
+        options[i].children[0].value = questions[questionIndex].options[i];
+        options[i].children[1].innerHTML = questions[questionIndex].options[i];
+      }
+    }
+
+    nextQuestionBtn.addEventListener("click", function() {
+      let selectedOption = "";
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].children[0].checked) {
+          selectedOption = options[i].children[0].value;
+          break;
+        }
+      }
+      if (!selectedOption) {
+        alert("Please select an option");
+        return;
+      }
+      if (selectedOption === questions[currentQuestion].correctOption) {
+        totalScore++;
+      }
+      currentQuestion++;
+      if (currentQuestion === questions.length) {
+        questionContainer.style.display = "none";
+        resultContainer.style.display = "block";
+        result.innerHTML = "Total Score: " + totalScore + "/" + questions.length;
+        return;
+      }
+      displayQuestion(currentQuestion);
+    });
+  }
+};
+
+
+
+</script>
+
