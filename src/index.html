@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Pop</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container" id="main">
+      <h1>Quiz Pop</h1>
+      <div class="topic-selector">
+        <h2>Select a topic:</h2>
+        <select id="topic-select">
+          <option value="">--Choose--</option>
+          <option value="history">History</option>
+          <option value="geography">Geography</option>
+          <option value="science">Science</option>
+        </select>
+        <button id="start-quiz-btn">Start Quiz</button>
+      </div>
+      <div class="question-container">
+        <h2>Question 1</h2>
+        <p class="question">What is the capital of France?</p>
+        <div class="options">
+          <div class="option">
+            <input type="radio" name="option1" value="Paris">Paris
+          </div>
+          <div class="option">
+            <input type="radio" name="option1" value="London">London
+          </div>
+          <div class="option">
+            <input type="radio" name="option1" value="Rome">Rome
+          </div>
+        </div>
+        <button id="next-question-btn">Next</button>
+      </div>
+      <div class="score-container">
+        <h2>Your score is:</h2>
+        <p id="score"></p>
+      </div>
+    </div>
+    <script src="js/index.js"></script>
+  
+  </body>
+</html>
