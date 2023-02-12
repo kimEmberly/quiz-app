@@ -74,6 +74,8 @@
     const nextQuestionBtn = document.querySelector("#next-question-btn");
     const scoreContainer = document.querySelector(".score-container");
     const score = document.querySelector("#score");
+    const resultContainer = document.querySelector("  .score-container");
+    const result = document.querySelector("#score");
 
     let currentQuestion = 0;
     let questions = [];
@@ -82,7 +84,7 @@
     const historyQuestions = [
       {
         question: "What is the capital of France?",
-        options: ["Paris", "London",   Rome"],
+        options: ["Paris", "London",   "Rome"],
         correctOption: "Paris"
       },
       {
@@ -133,6 +135,14 @@
       }
     ];
 
+    function displayQuestion() {
+     question.innerHTML = questions[currentQuestion].question;
+     for (let i = 0; i < options.length; i++) {
+       options[i].innerHTML = `<input type="radio" name="option${currentQuestion}" value="${questions[currentQuestion].options[i]}">${questions[currentQuestion].options[i]}`;
+     }
+   }
+   
+
     startQuizBtn.addEventListener("click", function() {
       if (!topicSelect.value) {
         alert("Please select a topic");
@@ -153,16 +163,10 @@
       displayQuestion(currentQuestion);
     });
 
-    function displayQuestion(questionIndex) {
-      question.innerHTML = questions[questionIndex].question;
-      for (let i = 0; i < options.length; i++) {
-        options[i].children[0].value = questions[questionIndex].options[i];
-        options[i].children[1].innerHTML = questions[questionIndex].options[i];
-      }
-    }
 
     nextQuestionBtn.addEventListener("click", function() {
       let selectedOption = "";
+
       for (let i = 0; i < options.length; i++) {
         if (options[i].children[0].checked) {
           selectedOption = options[i].children[0].value;
@@ -184,11 +188,12 @@
         return;
       }
       displayQuestion(currentQuestion);
-    });
-  }
-};
+     });
+
 
 
 
 </script>
 
+</body>
+</html>
